@@ -494,3 +494,2030 @@ How does Docker daemon ensure consistency after crashes?
 How does Docker daemon differ from containerd-only setups?
 
 When should Docker daemon not be used?
+Docker Daemon – WHY Questions
+
+Why is the Docker daemon designed as a long-running root process?
+
+Why does Docker still need a daemon instead of a pure CLI model?
+
+Why can’t containers survive a full daemon restart without recovery logic?
+
+Why does Docker daemon delegate execution to containerd instead of doing it itself?
+
+Why was containerd split out of Docker originally?
+
+Why does Docker rely on OCI instead of a Docker-specific runtime?
+
+Why does Docker daemon store state on disk instead of recomputing it?
+
+Why does Docker daemon become a single point of failure on a host?
+
+Why is Docker daemon written in Go?
+
+Why is Docker daemon event-driven instead of batch-driven?
+
+Docker API & Communication – WHY
+
+Why does Docker expose a REST API instead of a message queue?
+
+Why is the Docker API versioned?
+
+Why does Docker daemon default to a Unix socket instead of TCP?
+
+Why is exposing /var/run/docker.sock equivalent to root access?
+
+Why does Docker daemon allow multiple clients concurrently?
+
+Why does Docker daemon not implement fine-grained RBAC by default?
+
+Why is TLS mandatory for remote Docker daemon access?
+
+Why does Docker daemon block certain API calls synchronously?
+
+Why does Docker daemon retry some operations automatically?
+
+Why is Docker daemon backward-compatible across versions?
+
+Lifecycle & State – WHY
+
+Why does Docker daemon keep container metadata separate from runtime state?
+
+Why does Docker daemon track containers even when stopped?
+
+Why does Docker daemon need to rehydrate containers after restart?
+
+Why can orphaned containers exist after crashes?
+
+Why does Docker daemon treat containers as immutable once started?
+
+Why does Docker daemon serialize container start operations?
+
+Why does Docker daemon not automatically restart all containers after reboot?
+
+Why does Docker daemon need an event system?
+
+Why does Docker daemon track container dependencies?
+
+Why does Docker daemon not garbage-collect aggressively by default?
+
+Networking – WHY
+
+Why does Docker daemon manage iptables instead of delegating to the OS?
+
+Why does Docker daemon create its own bridge network?
+
+Why does Docker daemon provide embedded DNS?
+
+Why is container networking namespace-based?
+
+Why does Docker daemon require root privileges for networking?
+
+Why does Docker daemon not expose raw iptables by default?
+
+Why does overlay networking require daemon-to-daemon communication?
+
+Why does Docker daemon keep network state even after containers stop?
+
+Why are network drivers implemented as plugins?
+
+Why does Docker daemon sometimes leak network resources?
+
+Storage & Volumes – WHY
+
+Why does Docker daemon separate image layers from container layers?
+
+Why does Docker daemon use copy-on-write filesystems?
+
+Why are volumes managed by the daemon and not the runtime?
+
+Why does Docker daemon not delete volumes by default?
+
+Why are anonymous volumes a common source of disk leaks?
+
+Why does Docker daemon not snapshot volumes automatically?
+
+Why does Docker daemon support multiple storage drivers?
+
+Why does Docker daemon persist volume metadata centrally?
+
+Why does Docker daemon struggle under high I/O load?
+
+Why does Docker daemon not deduplicate volumes?
+
+Security – WHY
+
+Why is Docker daemon considered a high-risk attack surface?
+
+Why does Docker daemon run containers as root by default?
+
+Why is user-namespace remapping not enabled by default?
+
+Why does Docker daemon rely on seccomp instead of custom syscall filters?
+
+Why does Docker daemon integrate with AppArmor/SELinux instead of replacing them?
+
+Why does Docker daemon allow privileged containers?
+
+Why does Docker daemon not sandbox itself?
+
+Why is rootless Docker slower or more limited?
+
+Why does Docker daemon not manage secrets securely by default?
+
+Why is daemon compromise catastrophic in production?
+
+Performance & Scale – WHY
+
+Why does Docker daemon become slow with thousands of containers?
+
+Why does Docker daemon serialize certain operations?
+
+Why does image pulling block container startup?
+
+Why does Docker daemon consume significant memory over time?
+
+Why does Docker daemon struggle under high churn?
+
+Why does Docker daemon become a bottleneck in CI systems?
+
+Why does Docker daemon perform poorly on slow disks?
+
+Why does Docker daemon not parallelize everything?
+
+Why does Docker daemon require periodic restarts in long-running systems?
+
+Why is container startup time impacted by daemon health?
+
+High Availability & Multi-Node – WHY
+
+Why can Docker daemon not be clustered natively?
+
+Why does Docker Swarm rely on daemon-level consensus?
+
+Why is leader election handled at the daemon level?
+
+Why does Docker daemon require TLS for inter-node communication?
+
+Why does Docker daemon not handle split-brain well?
+
+Why does Docker daemon not replicate local container state?
+
+Why is Docker Swarm state stored in raft?
+
+Why does Docker daemon fail hard on quorum loss?
+
+Why is daemon-level orchestration less popular today?
+
+Why did Kubernetes move away from Docker daemon dependency?
+
+Failure & Recovery – WHY
+
+Why does Docker daemon restart sometimes kill running workloads?
+
+Why can Docker daemon hang without crashing?
+
+Why does Docker daemon leak file descriptors?
+
+Why does Docker daemon fail silently in some cases?
+
+Why does Docker daemon sometimes lose track of containers?
+
+Why does disk exhaustion break Docker daemon completely?
+
+Why does Docker daemon not self-heal corrupted state?
+
+Why do upgrades occasionally break Docker daemon state?
+
+Why is rollback hard after daemon upgrades?
+
+Why do production teams monitor dockerd as a first-class service?
+
+Architecture & Design – WHY
+
+Why is Docker daemon unsuitable for very high-density platforms?
+
+Why is containerd-only preferred in modern platforms?
+
+Why is Docker daemon still used despite its limitations?
+
+Why does Docker daemon not enforce strict immutability?
+
+Why does Docker daemon favor flexibility over safety?
+
+Why is Docker daemon not ideal for multi-tenant environments?
+
+Why does Docker daemon blur the line between build and runtime?
+
+Why is Docker daemon considered legacy in cloud-native stacks?
+
+Why does Docker daemon remain dominant in developer workflows?
+
+Why should a senior DevOps engineer deeply understand dockerd intern
+
+
+
+
+Docker Images – Fundamentals
+
+What is a Docker image?
+
+How is a Docker image different from a container?
+
+What is an image layer?
+
+How are Docker image layers stored?
+
+Why are Docker images immutable?
+
+What is the role of a Dockerfile?
+
+What is the difference between image ID and digest?
+
+How does Docker identify an image uniquely?
+
+What happens when you delete an image?
+
+Can two images share layers?
+
+Image Layers & Internals
+
+How does Docker implement copy-on-write for images?
+
+What is a read-only layer?
+
+What is the writable container layer?
+
+How does union filesystem work in Docker images?
+
+What happens when a file is modified inside a container?
+
+Why do image layers increase in size unexpectedly?
+
+How does layer ordering affect image size?
+
+What happens if two layers modify the same file?
+
+How does Docker reuse cached layers?
+
+Why are layers stored as tar archives?
+
+Dockerfile Instructions
+
+What is the difference between RUN, CMD, and ENTRYPOINT?
+
+How does COPY differ from ADD?
+
+What happens if you misuse ADD?
+
+How does WORKDIR affect image layers?
+
+How does EXPOSE affect the image?
+
+What is the impact of ENV on image caching?
+
+How does ARG differ from ENV?
+
+What happens if CMD is defined multiple times?
+
+How does USER affect image security?
+
+What is the role of SHELL instruction?
+
+Image Build Process
+
+What happens internally during docker build?
+
+How does Docker decide whether to use cache?
+
+What invalidates Docker build cache?
+
+How does BuildKit change image building?
+
+How does parallel build work in BuildKit?
+
+What is a build context?
+
+Why should build context be minimal?
+
+How does .dockerignore work?
+
+How does Docker handle multi-arch builds?
+
+What happens if build fails midway?
+
+Image Size Optimization
+
+Why are large images a production problem?
+
+How do you reduce Docker image size?
+
+Why does apt-get clean matter?
+
+Why should package installation be combined into one RUN?
+
+What is a multi-stage build?
+
+When should multi-stage builds not be used?
+
+Why do debugging tools inflate image size?
+
+Why is Alpine not always the best choice?
+
+How do distroless images work?
+
+How do you compare image sizes accurately?
+
+Base Images
+
+What is a base image?
+
+When should you use scratch images?
+
+Alpine vs Debian vs Ubuntu—trade-offs?
+
+What are distroless images?
+
+What problems do musl-based images cause?
+
+Why do some binaries fail on Alpine?
+
+How do you choose a secure base image?
+
+How often should base images be updated?
+
+What risks exist in unofficial base images?
+
+How do you pin base image versions safely?
+
+Image Tagging & Versioning
+
+What is an image tag?
+
+Why is latest considered dangerous?
+
+How do you implement semantic versioning for images?
+
+What happens if a tag is overwritten?
+
+How do digests differ from tags?
+
+How do you ensure reproducible image builds?
+
+How do you promote images across environments?
+
+How do you roll back a bad image?
+
+How do you handle backward compatibility?
+
+How do you manage image deprecation?
+
+Image Registries
+
+How does Docker push images to a registry?
+
+How does Docker pull images from a registry?
+
+What happens during image pull authentication?
+
+How does Docker handle partial image pulls?
+
+What is a manifest list?
+
+How do private registries work?
+
+How do you clean up unused images in a registry?
+
+How do registries store layers efficiently?
+
+How do you handle registry outages?
+
+How do you mirror registries?
+
+Security & Compliance
+
+How do vulnerabilities enter Docker images?
+
+How do you scan images for CVEs?
+
+What is image signing?
+
+How does Docker Content Trust work?
+
+How do you prevent malicious image tampering?
+
+Why should images not run as root?
+
+How do secrets leak into images?
+
+Why is embedding credentials in images dangerous?
+
+How do you audit image provenance?
+
+How do you enforce image policies in production?
+
+Performance & Operations
+
+How does image size affect container startup time?
+
+How do image layers affect disk I/O?
+
+Why do image pulls fail under load?
+
+How do you optimize image pulls in CI/CD?
+
+How do you cache images across builds?
+
+How do you handle high image churn?
+
+How do you clean up dangling images safely?
+
+How do you debug image corruption?
+
+How do you detect unused images on hosts?
+
+How do images impact node density?
+
+Failure & Troubleshooting
+
+Image builds locally but fails in CI—why?
+
+Image runs locally but fails in production—why?
+
+Image pulls slowly in production—why?
+
+Image digest mismatch—what causes it?
+
+Dockerfile change didn’t reflect in image—why?
+
+Image push fails intermittently—why?
+
+Image size suddenly doubled—why?
+
+Build cache behaving incorrectly—why?
+
+Image vulnerability scan blocking release—what do you do?
+
+Image rollback failed—why?
+
+Architecture & Design
+
+When should Docker images not be used?
+
+Fat image vs thin image—trade-offs?
+
+One image per service vs shared base image?
+
+How do images differ in monolith vs microservices?
+
+How do you design images for multi-tenant platforms?
+
+How do you design images for edge devices?
+
+How do you handle OS-level patching with images?
+
+How do you future-proof Docker images?
+
+How do you design images for zero-downtime deploys?
+Docker Images – WHY Questions (Senior / 10+ Years)
+Fundamentals
+
+Why are Docker images immutable by design?
+
+Why are images different from running containers?
+
+Why does Docker split images into layers?
+
+Why does Docker reuse layers across images?
+
+Why are images content-addressable?
+
+Why does Docker use digests instead of names internally?
+
+Why can deleting an image break running containers later?
+
+Why does Docker keep unused image layers on disk?
+
+Why does Docker allow dangling images?
+
+Why can two images share the same layers safely?
+
+Layers & Internals
+
+Why does Docker use copy-on-write filesystems for images?
+
+Why are image layers read-only?
+
+Why is the container layer writable but image layers are not?
+
+Why does modifying a file create a new copy instead of editing it?
+
+Why do small Dockerfile changes cause large rebuilds?
+
+Why does layer order matter?
+
+Why does deleting files in later layers not reduce image size?
+
+Why does Docker store layers as tar archives?
+
+Why does Docker cache layers aggressively?
+
+Why do image layers sometimes get corrupted?
+
+Dockerfile Design
+
+Why is RUN different from CMD and ENTRYPOINT?
+
+Why should ENTRYPOINT be used carefully?
+
+Why is ADD considered dangerous compared to COPY?
+
+Why does WORKDIR create a new layer?
+
+Why does EXPOSE not actually open ports?
+
+Why do ENV variables affect image caching?
+
+Why does ARG not persist at runtime?
+
+Why does only the last CMD take effect?
+
+Why should images avoid running as root?
+
+Why does SHELL instruction exist?
+
+Image Build Process
+
+Why does Docker build images layer by layer?
+
+Why does Docker stop using cache when one step changes?
+
+Why is Docker build context often a performance bottleneck?
+
+Why should .dockerignore be aggressively used?
+
+Why does BuildKit outperform legacy docker build?
+
+Why does Docker not rebuild unchanged layers?
+
+Why can builds succeed locally but fail in CI?
+
+Why does multi-arch image build require emulation?
+
+Why does Docker not clean up failed build layers automatically?
+
+Why does Docker build sometimes appear stuck?
+
+Image Size & Optimization
+
+Why are large images bad for production?
+
+Why does combining RUN commands reduce image size?
+
+Why does forgetting apt-get clean bloat images?
+
+Why does multi-stage build dramatically reduce size?
+
+Why do debugging tools inflate images disproportionately?
+
+Why is Alpine not always the best base image?
+
+Why do distroless images improve security?
+
+Why do smaller images start faster?
+
+Why does image size affect cloud cost directly?
+
+Why do teams underestimate image size impact?
+
+Base Images
+
+Why should base images be minimal?
+
+Why does scratch image exist?
+
+Why do musl-based images cause runtime issues?
+
+Why do some binaries fail on Alpine?
+
+Why do glibc-based images have better compatibility?
+
+Why should base images be pinned by digest?
+
+Why are unofficial images risky?
+
+Why must base images be patched frequently?
+
+Why do outdated base images cause security incidents?
+
+Why is choosing a base image an architectural decision?
+
+Tagging & Versioning
+
+Why are image tags mutable?
+
+Why is latest considered dangerous?
+
+Why should production use image digests?
+
+Why does overwriting tags break deployments?
+
+Why is semantic versioning important for images?
+
+Why do rollbacks fail when tags move?
+
+Why should images be immutable across environments?
+
+Why is promotion better than rebuilding?
+
+Why is backward compatibility hard with images?
+
+Why do teams lose traceability without proper tagging?
+
+Registries
+
+Why does Docker push layers instead of full images?
+
+Why do registries store layers once?
+
+Why do registry outages break deployments?
+
+Why is authentication required for pulls?
+
+Why are manifest lists needed?
+
+Why does Docker retry layer downloads?
+
+Why does registry cleanup matter?
+
+Why do large registries become slow over time?
+
+Why should registries be mirrored?
+
+Why does registry latency affect autoscaling?
+
+Security
+
+Why do vulnerabilities propagate through images?
+
+Why do images accumulate CVEs over time?
+
+Why is image scanning mandatory in production?
+
+Why is embedding secrets in images dangerous?
+
+Why is image signing important?
+
+Why should images avoid package managers at runtime?
+
+Why do root-based images increase blast radius?
+
+Why does Docker Content Trust matter?
+
+Why is image provenance critical?
+
+Why do compromised images lead to supply-chain attacks?
+
+Performance & Operations
+
+Why does image size affect container startup time?
+
+Why do image pulls fail under high load?
+
+Why does cold-start time depend on image design?
+
+Why does CI slow down with large images?
+
+Why should images be cached close to compute?
+
+Why does high image churn hurt clusters?
+
+Why do dangling images consume disk silently?
+
+Why is image cleanup risky in production?
+
+Why does image corruption cause random failures?
+
+Why do images affect node density?
+
+Failures & Troubleshooting
+
+Why does an image work locally but fail in production?
+
+Why do CI builds fail while local builds succeed?
+
+Why does image size suddenly double?
+
+Why does Docker ignore Dockerfile changes sometimes?
+
+Why do digest mismatches occur?
+
+Why does image pull hang indefinitely?
+
+Why does pushing images fail intermittently?
+
+Why does build cache behave unpredictably?
+
+Why do vulnerability scans block releases?
+
+Why do rollbacks fail due to image issues?
+
+Architecture & Design
+
+Why should one image map to one responsibility?
+
+Why are fat images discouraged?
+
+Why do shared base images improve cache efficiency?
+
+Why do microservices amplify image problems?
+
+Why do edge deployments need special images?
+
+Why do images matter more than containers at scale?
+
+Why is image lifecycle management critical?
+
+Why do images define runtime behavior more than code?
+
+Why are images part of platform architecture?
+
+Why do senior DevOps engineers obsess over images?
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Containers – Core Concepts
+
+What is a container?
+
+How is a container different from a virtual machine?
+
+What components make up a running container?
+
+What is the role of namespaces in containers?
+
+What is the role of cgroups in containers?
+
+How does a container start and stop?
+
+What is PID 1 inside a container?
+
+How does Docker track container state?
+
+What happens when a container crashes?
+
+Can a container outlive the Docker daemon?
+
+Container Lifecycle
+
+What happens internally when docker run is executed?
+
+What is the difference between docker create and docker run?
+
+What happens during docker start?
+
+How does docker stop work internally?
+
+How does docker kill differ from docker stop?
+
+What happens if a container ignores SIGTERM?
+
+How does Docker restart a container?
+
+What are restart policies?
+
+How does Docker handle container exit codes?
+
+What happens when a container is paused?
+
+Process Management
+
+Why is PID 1 special in containers?
+
+How are signals propagated inside containers?
+
+What happens to child processes when PID 1 exits?
+
+How do zombie processes occur in containers?
+
+How do you prevent zombie processes?
+
+Can a container run multiple processes?
+
+When is running multiple processes acceptable?
+
+How do init systems work inside containers?
+
+What happens when the main process forks?
+
+How does Docker handle orphaned processes?
+
+Resource Management
+
+How does Docker enforce CPU limits?
+
+How does Docker enforce memory limits?
+
+What happens when a container exceeds memory limits?
+
+How does Docker handle swap memory?
+
+What is CPU throttling?
+
+How does Docker handle I/O limits?
+
+What is the noisy-neighbor problem?
+
+How do cgroups v1 and v2 differ?
+
+How does Docker report container resource usage?
+
+How do you debug resource starvation?
+
+Filesystem & Storage
+
+What is the writable container layer?
+
+What happens when a file is modified inside a container?
+
+How does copy-on-write affect performance?
+
+What happens to container data after deletion?
+
+When should containers be stateless?
+
+How do bind mounts differ from volumes?
+
+What happens if a volume is deleted while a container runs?
+
+How does Docker isolate filesystem access?
+
+How do you debug filesystem permission issues?
+
+What happens when disk fills up?
+
+Networking
+
+How does container networking work?
+
+How do containers get IP addresses?
+
+What is container port publishing?
+
+How does Docker DNS work?
+
+How do containers communicate on the same host?
+
+How do containers communicate across hosts?
+
+What happens when a container network is deleted?
+
+How do you isolate container network traffic?
+
+How do you debug network connectivity issues?
+
+What happens if two containers bind the same port?
+
+Security
+
+What security isolation do containers provide?
+
+What does running a container as root mean?
+
+How do user namespaces improve container security?
+
+What is a privileged container?
+
+What risks do privileged containers introduce?
+
+How do seccomp profiles protect containers?
+
+How do AppArmor and SELinux affect containers?
+
+How do capabilities restrict container privileges?
+
+How do you prevent container escape?
+
+How do you audit container activity?
+
+Observability & Operations
+
+How does Docker handle container logs?
+
+Where are container logs stored?
+
+How do you rotate container logs?
+
+How do you monitor container health?
+
+What are health checks?
+
+How do you debug a container that won’t start?
+
+How do you attach to a running container?
+
+How do you exec into a container safely?
+
+How do you trace container crashes?
+
+How do you capture container metrics?
+
+Performance
+
+What factors affect container startup time?
+
+How does image size impact container performance?
+
+How does filesystem choice affect containers?
+
+How does networking mode affect latency?
+
+How do you optimize container cold starts?
+
+How do you run high-density containers?
+
+How do you benchmark container performance?
+
+How do you detect CPU throttling?
+
+How do you handle memory fragmentation?
+
+How do you tune containers for low latency?
+
+Failure & Troubleshooting
+
+Container exits immediately—possible causes?
+
+Container restarts repeatedly—why?
+
+Container uses 100% CPU—why?
+
+Container gets OOM-killed—why?
+
+Container cannot access mounted files—why?
+
+Container cannot reach the internet—why?
+
+Container works locally but fails in prod—why?
+
+Container logs are empty—why?
+
+Container time is incorrect—why?
+
+Container stuck in “dead” state—why?
+
+Architecture & Design
+
+When should containers not be used?
+
+Stateless vs stateful containers—trade-offs?
+
+One container per process—why?
+
+Sidecar containers—when and why?
+
+Init containers—why are they needed?
+
+How do containers fit into microservices?
+
+How do you design containers for HA?
+
+How do you design containers for multi-tenancy?
+
+How do you handle backward compatibility?
+
+What distinguishes senior engineers in container design?
+
+Core Concepts
+
+Why are containers lighter than virtual machines?
+
+Why do containers rely on the host kernel?
+
+Why are namespaces fundamental to containers?
+
+Why are cgroups mandatory for containers?
+
+Why does a container need a writable layer?
+
+Why is a container not just a chroot?
+
+Why is PID 1 special inside a container?
+
+Why does Docker track container state externally?
+
+Why do containers exit when the main process exits?
+
+Why can containers not fully outlive the Docker daemon?
+
+Lifecycle
+
+Why does docker run combine create and start?
+
+Why does Docker separate create and start internally?
+
+Why does Docker send SIGTERM before SIGKILL?
+
+Why do some containers ignore SIGTERM?
+
+Why does Docker wait before force-killing containers?
+
+Why are restart policies implemented at the daemon level?
+
+Why does Docker restart containers automatically?
+
+Why do exit codes matter for containers?
+
+Why does Docker track container state after exit?
+
+Why is pausing a container different from stopping it?
+
+Process Management
+
+Why is PID 1 responsible for signal handling?
+
+Why do zombie processes appear in containers?
+
+Why does PID 1 not reap children by default?
+
+Why is an init process sometimes required?
+
+Why is running multiple processes discouraged?
+
+Why do some containers legitimately run multiple processes?
+
+Why does Docker not provide a built-in init by default?
+
+Why does process forking behave differently in containers?
+
+Why are orphaned processes a production risk?
+
+Why do poorly designed containers leak processes?
+
+Resource Management
+
+Why does Docker enforce CPU limits using cgroups?
+
+Why does memory overcommit cause container OOM kills?
+
+Why does Docker kill containers instead of throttling memory?
+
+Why is swap dangerous for containers?
+
+Why does CPU throttling degrade latency?
+
+Why does Docker not isolate I/O perfectly?
+
+Why does the noisy-neighbor problem occur?
+
+Why is cgroups v2 considered an improvement?
+
+Why does Docker resource reporting differ from host metrics?
+
+Why is resource starvation hard to debug?
+
+Filesystem & Storage
+
+Why do containers use copy-on-write filesystems?
+
+Why does modifying a file reduce performance?
+
+Why is container filesystem ephemeral by default?
+
+Why should production containers be stateless?
+
+Why do bind mounts introduce security risks?
+
+Why are volumes managed outside the container lifecycle?
+
+Why does deleting a container not delete volumes?
+
+Why does filesystem isolation not guarantee security?
+
+Why do permission issues occur frequently?
+
+Why does disk exhaustion break containers badly?
+
+Networking
+
+Why does Docker create virtual networks?
+
+Why does each container get its own network namespace?
+
+Why is port publishing required?
+
+Why does Docker include an embedded DNS?
+
+Why is container-to-container networking preferred?
+
+Why does cross-host networking require overlays?
+
+Why does network deletion disrupt running containers?
+
+Why is network isolation critical in production?
+
+Why is container networking hard to debug?
+
+Why can port conflicts crash deployments?
+
+Security
+
+Why are containers not a security boundary by default?
+
+Why is running containers as root dangerous?
+
+Why do user namespaces improve isolation?
+
+Why are privileged containers risky?
+
+Why do capabilities exist instead of full root?
+
+Why is seccomp essential for container security?
+
+Why do SELinux and AppArmor still matter?
+
+Why is container escape still possible?
+
+Why must container activity be audited?
+
+Why is defense-in-depth required for containers?
+
+Observability & Operations
+
+Why does Docker capture stdout/stderr for logs?
+
+Why are container logs not rotated by default?
+
+Why do missing logs complicate debugging?
+
+Why are health checks critical?
+
+Why do failing health checks not always stop traffic?
+
+Why do containers fail silently?
+
+Why is attaching to production containers risky?
+
+Why is exec access dangerous?
+
+Why do crashes need correlation across containers?
+
+Why are container metrics harder than VM metrics?
+
+Performance
+
+Why does image size affect startup time?
+
+Why does cold-start latency matter?
+
+Why does filesystem choice impact performance?
+
+Why does network mode affect latency?
+
+Why does high container density increase risk?
+
+Why is benchmarking containers non-trivial?
+
+Why is CPU throttling often misunderstood?
+
+Why does memory fragmentation occur?
+
+Why do low-latency workloads suffer in containers?
+
+Why does container tuning require workload awareness?
+
+Failure & Troubleshooting
+
+Why do containers exit immediately?
+
+Why do containers restart endlessly?
+
+Why do containers suddenly consume 100% CPU?
+
+Why are containers OOM-killed unexpectedly?
+
+Why do containers fail to access mounted files?
+
+Why do containers lose network connectivity?
+
+Why do containers behave differently in production?
+
+Why do containers produce no logs?
+
+Why do containers have incorrect system time?
+
+Why do containers enter a “dead” state?
+
+Architecture & Design
+
+Why should containers follow one-process-per-container?
+
+Why are stateless containers preferred at scale?
+
+Why do sidecar containers exist?
+
+Why are init containers needed?
+
+Why do microservices amplify container failures?
+
+Why must containers be designed for failure?
+
+Why is container design part of system architecture?
+
+Why do containers complicate multi-tenancy?
+
+Why is backward compatibility hard with containers?
+
+Why do senior engineers treat containers as infrastructure, not packaging?
+
+---------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+
+Core Concepts
+
+Why are containers lighter than virtual machines?
+
+Why do containers rely on the host kernel?
+
+Why are namespaces fundamental to containers?
+
+Why are cgroups mandatory for containers?
+
+Why does a container need a writable layer?
+
+Why is a container not just a chroot?
+
+Why is PID 1 special inside a container?
+
+Why does Docker track container state externally?
+
+Why do containers exit when the main process exits?
+
+Why can containers not fully outlive the Docker daemon?
+
+Lifecycle
+
+Why does docker run combine create and start?
+
+Why does Docker separate create and start internally?
+
+Why does Docker send SIGTERM before SIGKILL?
+
+Why do some containers ignore SIGTERM?
+
+Why does Docker wait before force-killing containers?
+
+Why are restart policies implemented at the daemon level?
+
+Why does Docker restart containers automatically?
+
+Why do exit codes matter for containers?
+
+Why does Docker track container state after exit?
+
+Why is pausing a container different from stopping it?
+
+Process Management
+
+Why is PID 1 responsible for signal handling?
+
+Why do zombie processes appear in containers?
+
+Why does PID 1 not reap children by default?
+
+Why is an init process sometimes required?
+
+Why is running multiple processes discouraged?
+
+Why do some containers legitimately run multiple processes?
+
+Why does Docker not provide a built-in init by default?
+
+Why does process forking behave differently in containers?
+
+Why are orphaned processes a production risk?
+
+Why do poorly designed containers leak processes?
+
+Resource Management
+
+Why does Docker enforce CPU limits using cgroups?
+
+Why does memory overcommit cause container OOM kills?
+
+Why does Docker kill containers instead of throttling memory?
+
+Why is swap dangerous for containers?
+
+Why does CPU throttling degrade latency?
+
+Why does Docker not isolate I/O perfectly?
+
+Why does the noisy-neighbor problem occur?
+
+Why is cgroups v2 considered an improvement?
+
+Why does Docker resource reporting differ from host metrics?
+
+Why is resource starvation hard to debug?
+
+Filesystem & Storage
+
+Why do containers use copy-on-write filesystems?
+
+Why does modifying a file reduce performance?
+
+Why is container filesystem ephemeral by default?
+
+Why should production containers be stateless?
+
+Why do bind mounts introduce security risks?
+
+Why are volumes managed outside the container lifecycle?
+
+Why does deleting a container not delete volumes?
+
+Why does filesystem isolation not guarantee security?
+
+Why do permission issues occur frequently?
+
+Why does disk exhaustion break containers badly?
+
+Networking
+
+Why does Docker create virtual networks?
+
+Why does each container get its own network namespace?
+
+Why is port publishing required?
+
+Why does Docker include an embedded DNS?
+
+Why is container-to-container networking preferred?
+
+Why does cross-host networking require overlays?
+
+Why does network deletion disrupt running containers?
+
+Why is network isolation critical in production?
+
+Why is container networking hard to debug?
+
+Why can port conflicts crash deployments?
+
+Security
+
+Why are containers not a security boundary by default?
+
+Why is running containers as root dangerous?
+
+Why do user namespaces improve isolation?
+
+Why are privileged containers risky?
+
+Why do capabilities exist instead of full root?
+
+Why is seccomp essential for container security?
+
+Why do SELinux and AppArmor still matter?
+
+Why is container escape still possible?
+
+Why must container activity be audited?
+
+Why is defense-in-depth required for containers?
+
+Observability & Operations
+
+Why does Docker capture stdout/stderr for logs?
+
+Why are container logs not rotated by default?
+
+Why do missing logs complicate debugging?
+
+Why are health checks critical?
+
+Why do failing health checks not always stop traffic?
+
+Why do containers fail silently?
+
+Why is attaching to production containers risky?
+
+Why is exec access dangerous?
+
+Why do crashes need correlation across containers?
+
+Why are container metrics harder than VM metrics?
+
+Performance
+
+Why does image size affect startup time?
+
+Why does cold-start latency matter?
+
+Why does filesystem choice impact performance?
+
+Why does network mode affect latency?
+
+Why does high container density increase risk?
+
+Why is benchmarking containers non-trivial?
+
+Why is CPU throttling often misunderstood?
+
+Why does memory fragmentation occur?
+
+Why do low-latency workloads suffer in containers?
+
+Why does container tuning require workload awareness?
+
+Failure & Troubleshooting
+
+Why do containers exit immediately?
+
+Why do containers restart endlessly?
+
+Why do containers suddenly consume 100% CPU?
+
+Why are containers OOM-killed unexpectedly?
+
+Why do containers fail to access mounted files?
+
+Why do containers lose network connectivity?
+
+Why do containers behave differently in production?
+
+Why do containers produce no logs?
+
+Why do containers have incorrect system time?
+
+Why do containers enter a “dead” state?
+
+Architecture & Design
+
+Why should containers follow one-process-per-container?
+
+Why are stateless containers preferred at scale?
+
+Why do sidecar containers exist?
+
+Why are init containers needed?
+
+Why do microservices amplify container failures?
+
+Why must containers be designed for failure?
+
+Why is container design part of system architecture?
+
+Why do containers complicate multi-tenancy?
+
+Why is backward compatibility hard with containers?
+
+Why do senior engineers treat containers as infrastructure, not packaging?
+
+If you want next:
+
+Live container-failure debugging drill
+
+“Container caused outage” post-mortem scenarios
+
+Daemon vs container failure comparison
+
+Hands-on signal-handling & PID 1 exercise
+
+Docker Build interview questions
+
+Below is a senior-level Docker Build interview question list.
+Questions only. No descriptions. No answers.
+
+Docker Build – Core Concepts
+
+What is docker build?
+
+What happens internally when a Docker build starts?
+
+What is a build context?
+
+How does Docker send the build context to the daemon?
+
+Why is the Docker build client–server based?
+
+What is the role of the Dockerfile in the build process?
+
+How does Docker determine build order?
+
+What is the difference between legacy build and BuildKit?
+
+Can Docker builds run without the Docker daemon?
+
+How does Docker handle concurrent builds?
+
+Build Context & Dockerignore
+
+What files are included in the Docker build context?
+
+How does .dockerignore work?
+
+Why does a large build context slow builds?
+
+What happens if .dockerignore is misconfigured?
+
+How does context size impact CI performance?
+
+Can build context be remote?
+
+How does Git-based build context work?
+
+Why should secrets never be in build context?
+
+How do symbolic links behave in build context?
+
+How does Docker detect context changes?
+
+Build Cache
+
+How does Docker build cache work?
+
+What conditions invalidate a cache layer?
+
+Why does changing one line break cache for later layers?
+
+How does instruction order affect cache reuse?
+
+What is cache metadata?
+
+How does Docker store cached layers?
+
+How does cache behave across different hosts?
+
+How does cache behave in CI pipelines?
+
+Can cache be shared between builds?
+
+How do you explicitly disable cache?
+
+Dockerfile Instructions (Build Perspective)
+
+How does RUN create a layer?
+
+How does COPY differ from ADD during build?
+
+How does WORKDIR affect build layers?
+
+How does ENV affect build caching?
+
+How does ARG behave during build?
+
+What happens if ARG is changed?
+
+Why does only the last CMD matter at runtime?
+
+How does USER affect build vs runtime?
+
+How does SHELL affect RUN commands?
+
+How does ONBUILD work?
+
+Multi-Stage Builds
+
+What is a multi-stage Docker build?
+
+Why are multi-stage builds faster?
+
+How do you copy artifacts between stages?
+
+What happens to unused stages?
+
+How do multi-stage builds reduce image size?
+
+When are multi-stage builds not suitable?
+
+Can stages share cache?
+
+How do you debug intermediate stages?
+
+How do you name build stages?
+
+How do multi-stage builds impact security?
+
+BuildKit
+
+What is Docker BuildKit?
+
+How does BuildKit differ from legacy builder?
+
+How does BuildKit enable parallel builds?
+
+How does BuildKit handle caching differently?
+
+What is inline cache?
+
+How do BuildKit secrets work?
+
+How do BuildKit mounts work?
+
+How does BuildKit improve reproducibility?
+
+How does BuildKit affect build logs?
+
+How do you enable or disable BuildKit?
+
+Secrets & Security
+
+Why should secrets not be passed via ARG?
+
+How do secrets leak into image layers?
+
+How do BuildKit secrets prevent leakage?
+
+What happens if secrets are baked into layers?
+
+How do you audit images for secret leakage?
+
+Why is docker history relevant for security?
+
+How do you prevent credential persistence?
+
+Why are multi-stage builds safer?
+
+How do you handle private dependency access?
+
+How do you secure CI build environments?
+
+Performance & Optimization
+
+How do you optimize Docker build speed?
+
+How does layer ordering affect performance?
+
+Why should dependency installation be isolated?
+
+How do you reduce rebuild time in CI?
+
+How do you cache dependencies effectively?
+
+How do you parallelize builds?
+
+How does disk I/O affect builds?
+
+How do network issues impact builds?
+
+How do you benchmark Docker build performance?
+
+How do you optimize builds for large monorepos?
+
+Reproducibility & Determinism
+
+What makes a Docker build reproducible?
+
+Why do builds differ across environments?
+
+How do floating tags break reproducibility?
+
+How do digests improve determinism?
+
+Why does build time affect output sometimes?
+
+How do package mirrors affect builds?
+
+How do you lock dependency versions?
+
+How do you ensure byte-for-byte identical images?
+
+How do you detect non-deterministic builds?
+
+Why is reproducibility critical in production?
+
+CI/CD Integration
+
+How do Docker builds fit into CI pipelines?
+
+How do you cache build layers in CI?
+
+How do you handle parallel CI builds?
+
+How do you prevent race conditions in builds?
+
+How do you promote built images across environments?
+
+How do you fail builds on vulnerabilities?
+
+How do you sign images during build?
+
+How do you tag images automatically?
+
+How do you clean up CI build artifacts?
+
+How do you scale Docker builds in large teams?
+
+Failures & Troubleshooting
+
+Why does a Docker build work locally but fail in CI?
+
+Why does Docker rebuild everything unexpectedly?
+
+Why does build cache behave inconsistently?
+
+Why do builds hang during RUN steps?
+
+Why do COPY commands fail intermittently?
+
+Why does Docker report “no space left on device”?
+
+Why does Docker build consume excessive memory?
+
+Why does build output differ across hosts?
+
+Why do builds fail after base image updates?
+
+Why are Docker builds hard to debug at scale?
+
+Architecture & Design
+
+When should Docker builds be avoided?
+
+Fat build image vs thin runtime image—why?
+
+One Dockerfile vs multiple Dockerfiles—trade-offs?
+
+How do you design builds for monorepos?
+
+How do you design builds for microservices?
+
+How do you design builds for edge devices?
+
+How do you future-proof Docker build pipelines?
+
+How do you standardize Docker builds across teams?
+
+How do you govern Dockerfile quality?
+
+What separates senior engineers in Docker build design?
+
+Docker Build — WHY Questions (Senior Level)
+Core Concepts
+
+Why does Docker use a client–daemon model for builds?
+
+Why does docker build require a build context?
+
+Why is the Dockerfile treated as a declarative build plan?
+
+Why does Docker build images layer by layer?
+
+Why is build order strictly sequential by default?
+
+Why was the legacy Docker builder replaced?
+
+Why does Docker separate build and runtime concerns?
+
+Why can Docker builds block the daemon?
+
+Why does Docker allow concurrent builds?
+
+Why can Docker builds not fully run without a daemon?
+
+Build Context & .dockerignore
+
+Why does Docker send the entire build context to the daemon?
+
+Why does a large build context slow down builds drastically?
+
+Why is .dockerignore critical for performance?
+
+Why do misconfigured .dockerignore files cause broken builds?
+
+Why should secrets never exist in the build context?
+
+Why do symbolic links cause unexpected behavior in builds?
+
+Why is remote build context supported?
+
+Why do Git-based contexts behave differently?
+
+Why does context hashing affect cache reuse?
+
+Why do CI environments amplify context problems?
+
+Build Cache
+
+Why does Docker cache build layers?
+
+Why does a single Dockerfile change invalidate downstream cache?
+
+Why does instruction ordering matter for cache efficiency?
+
+Why does Docker cache COPY and RUN differently?
+
+Why is cache reuse host-specific by default?
+
+Why does Docker not share cache automatically across machines?
+
+Why does cache behave inconsistently in CI?
+
+Why does disabling cache slow builds significantly?
+
+Why is cache metadata critical?
+
+Why does Docker not garbage-collect cache aggressively?
+
+Dockerfile Instructions
+
+Why does each RUN instruction create a new layer?
+
+Why is ADD considered dangerous compared to COPY?
+
+Why does WORKDIR affect caching?
+
+Why do ENV instructions invalidate cache?
+
+Why is ARG limited to build time?
+
+Why does changing ARG values break cache?
+
+Why does only the final CMD matter?
+
+Why does USER affect build and runtime differently?
+
+Why does SHELL exist at all?
+
+Why does ONBUILD often cause hidden failures?
+
+Multi-Stage Builds
+
+Why were multi-stage builds introduced?
+
+Why do multi-stage builds reduce image size dramatically?
+
+Why are intermediate stages discarded?
+
+Why is copying artifacts between stages safer?
+
+Why do multi-stage builds improve security?
+
+Why are multi-stage builds sometimes slower?
+
+Why can stages share cache?
+
+Why is debugging multi-stage builds harder?
+
+Why should build stages be named?
+
+Why do multi-stage builds change how teams structure Dockerfiles?
+
+BuildKit
+
+Why was BuildKit created?
+
+Why is BuildKit faster than the legacy builder?
+
+Why does BuildKit support parallel execution?
+
+Why does BuildKit handle caching differently?
+
+Why is inline cache important?
+
+Why are BuildKit secrets safer?
+
+Why are BuildKit mounts ephemeral?
+
+Why does BuildKit improve reproducibility?
+
+Why are BuildKit logs structured differently?
+
+Why is BuildKit not always enabled by default?
+
+Secrets & Security
+
+Why should secrets never be passed via ARG?
+
+Why do secrets leak into image layers?
+
+Why is docker history a security concern?
+
+Why do multi-stage builds reduce secret exposure?
+
+Why is secret handling a build-time concern?
+
+Why must CI systems treat builds as untrusted?
+
+Why does baking credentials into images cause incidents?
+
+Why is image provenance tied to build security?
+
+Why do compromised builds affect the entire supply chain?
+
+Why must build security be automated?
+
+Performance & Optimization
+
+Why does layer ordering dominate build speed?
+
+Why should dependency installation be isolated early?
+
+Why do slow disks cripple Docker builds?
+
+Why does network latency affect builds heavily?
+
+Why do monorepos make Docker builds harder?
+
+Why does parallelism improve build speed non-linearly?
+
+Why do builds slow down over time on long-lived hosts?
+
+Why does excessive logging slow builds?
+
+Why is build benchmarking difficult?
+
+Why do teams underestimate build performance impact?
+
+Reproducibility & Determinism
+
+Why are Docker builds often non-deterministic?
+
+Why do floating tags break reproducibility?
+
+Why do base image updates cause silent changes?
+
+Why do timestamps affect image digests?
+
+Why do package mirrors introduce variability?
+
+Why must dependency versions be locked?
+
+Why are digests preferred over tags?
+
+Why is byte-for-byte reproducibility hard?
+
+Why is detecting non-determinism difficult?
+
+Why is reproducibility critical for audits and rollbacks?
+
+CI/CD Integration
+
+Why do CI builds fail while local builds succeed?
+
+Why is build cache harder in CI?
+
+Why do parallel CI builds cause race conditions?
+
+Why should images be promoted instead of rebuilt?
+
+Why should builds fail fast on vulnerabilities?
+
+Why should images be signed at build time?
+
+Why is automatic tagging risky?
+
+Why must CI clean up build artifacts?
+
+Why do large teams struggle with Docker build governance?
+
+Why does Docker build scalability become a bottleneck?
+
+Failures & Troubleshooting
+
+Why does Docker rebuild everything unexpectedly?
+
+Why does build cache behave unpredictably?
+
+Why do builds hang during RUN steps?
+
+Why does Docker report “no space left on device”?
+
+Why does Docker build consume excessive memory?
+
+Why does COPY fail intermittently?
+
+Why do builds break after base image updates?
+
+Why does build output differ across machines?
+
+Why are Docker builds hard to debug?
+
+Why do build failures often hide root causes?
+
+Architecture & Design
+
+Why should build images differ from runtime images?
+
+Why are thin runtime images preferred?
+
+Why do teams standardize Dockerfiles?
+
+Why do monorepos need custom build strategies?
+
+Why do microservices amplify build problems?
+
+Why do edge devices require specialized builds?
+
+Why must Docker build pipelines be future-proofed?
+
+Why is build design part of platform architecture?
+
+Why do organizations enforce Dockerfile standards?
+
+Why do senior DevOps engineers obsess over Docker builds?
+
