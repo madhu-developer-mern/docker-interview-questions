@@ -1,0 +1,496 @@
+Docker Core & Internals
+
+What is the Docker daemon and how does it interact with containerd and runc?
+
+How does Docker use Linux namespaces?
+
+How do cgroups enforce resource limits in Docker?
+
+What is the OCI specification and why does it matter?
+
+How does Docker handle process isolation?
+
+What happens internally when you run docker run?
+
+What is the difference between dockerd and containerd?
+
+How does Docker manage PID 1 inside containers?
+
+How does Docker implement copy-on-write?
+
+What happens when the Docker daemon crashes?
+
+Images & Build
+
+How does Docker layer caching work?
+
+What invalidates a Docker build cache?
+
+What are multi-stage Docker builds?
+
+When should you use ARG vs ENV?
+
+What are the drawbacks of large image layers?
+
+How do distroless images work?
+
+Alpine vs Debian vs Ubuntu images—when to use which?
+
+How does BuildKit improve builds?
+
+How do you reduce Docker image size?
+
+How do you scan Docker images for vulnerabilities?
+
+Containers & Runtime
+
+How do you debug a container that exits immediately?
+
+How do you inspect container resource usage?
+
+How do you handle zombie processes in containers?
+
+Why is PID 1 behavior important?
+
+How do signals propagate in Docker containers?
+
+What is the difference between CMD and ENTRYPOINT?
+
+How do you run multiple processes in one container safely?
+
+What causes container OOM kills?
+
+How do you control container restart behavior?
+
+How do you do zero-downtime container restarts?
+
+Networking
+
+How does Docker bridge networking work?
+
+Difference between bridge, host, and none networks?
+
+How does Docker DNS resolution work?
+
+How do containers communicate across hosts?
+
+What is overlay networking?
+
+How does Docker handle port publishing?
+
+How do you debug container networking issues?
+
+What happens when two containers bind the same port?
+
+How do iptables rules get created by Docker?
+
+How do you isolate network traffic between containers?
+
+Volumes & Storage
+
+Difference between bind mounts and volumes?
+
+When would you use tmpfs mounts?
+
+How does Docker handle volume lifecycle?
+
+How do anonymous volumes behave?
+
+How do you back up Docker volumes?
+
+How do you share data between containers?
+
+How do you handle stateful containers?
+
+How do volume drivers work?
+
+What are the performance implications of bind mounts?
+
+How do you migrate Docker volumes between hosts?
+
+Security
+
+Why is mounting /var/run/docker.sock dangerous?
+
+How do you run containers as non-root?
+
+What are Docker security profiles?
+
+How does seccomp work in Docker?
+
+How do AppArmor and SELinux integrate with Docker?
+
+How do you prevent container breakout?
+
+How do you secure Docker daemon remote access?
+
+What is rootless Docker?
+
+How do you manage secrets in Docker?
+
+How do you rotate credentials inside containers?
+
+Orchestration & Scale
+
+Docker Swarm vs Kubernetes—trade-offs?
+
+How does Docker Swarm achieve high availability?
+
+How does service discovery work in Swarm?
+
+How does rolling update work in Swarm?
+
+How do you handle node failure in Swarm?
+
+Why did Kubernetes replace Docker in production?
+
+How does Docker integrate with Kubernetes today?
+
+How do you scale containers horizontally?
+
+How do you manage configuration at scale?
+
+How do you handle cluster-wide logging?
+
+CI/CD & Automation
+
+How do you optimize Docker builds in CI?
+
+How do you cache Docker layers in CI pipelines?
+
+How do you handle secrets in CI builds?
+
+How do you version Docker images?
+
+How do you promote images across environments?
+
+How do you roll back a bad image?
+
+How do you ensure reproducible builds?
+
+How do you sign Docker images?
+
+How do you prevent “latest” tag issues?
+
+How do you automate container security scanning?
+
+Observability & Operations
+
+How do you collect container logs?
+
+How do you monitor container health?
+
+Difference between liveness and readiness?
+
+How do you trace issues across containers?
+
+How do you debug CPU throttling?
+
+How do you detect memory leaks in containers?
+
+How do you handle noisy neighbor problems?
+
+How do you monitor Docker daemon health?
+
+How do you handle log rotation?
+
+How do you perform container forensics?
+
+Performance & Cost
+
+How does Docker impact application performance?
+
+How do you reduce container cold-start time?
+
+How do you optimize network latency in containers?
+
+How do you reduce storage overhead?
+
+How do you right-size container resources?
+
+How do you control runaway containers?
+
+How do you manage Docker on spot instances?
+
+How do you reduce image pull time?
+
+How do you benchmark container performance?
+
+How do you handle high-density container hosts?
+
+Troubleshooting & Scenarios
+
+Container works locally but fails in production—why?
+
+Docker build is slow—how do you diagnose?
+
+Containers randomly restart—root causes?
+
+Docker disk usage keeps growing—how do you fix it?
+
+Images pull slowly in prod but fast locally—why?
+
+Docker daemon is unresponsive—what steps do you take?
+
+Containers cannot reach external internet—why?
+
+Application works without Docker but fails inside—why?
+
+Production container is compromised—what do you do?
+
+Docker upgrade broke containers—how do you recover?
+
+Architecture & Design
+
+When should Docker not be used?
+
+Single container vs multiple containers per service?
+
+Monolith vs microservices in Docker?
+
+How do you design Docker for multi-tenancy?
+
+How do you design a secure Docker platform?
+
+How do you design Docker for regulated environments?
+
+How do you handle backward compatibility?
+
+How do you design Docker for hybrid cloud?
+
+How do you design Docker for edge devices?
+
+How do you future-proof a Docker-based platform?
+
+If you want, I can next:
+
+Convert this into a mock 2-hour senior DevOps interview
+
+Add hands-on Docker coding tasks only
+
+Split into system design vs deep internals vs ops firefighting
+
+if i mainly focus on docker daemon then what type of questions i can except
+
+Below is a focused, senior-level question list you can expect if the interview mainly targets the Docker daemon (dockerd).
+Questions only. No descriptions. No answers.
+
+Docker Daemon Fundamentals
+
+What is the role of the Docker daemon?
+
+How does the Docker daemon differ from the Docker CLI?
+
+How does the Docker daemon start and stop?
+
+What happens if the Docker daemon crashes?
+
+How does Docker daemon maintain container state?
+
+Can containers run without the Docker daemon?
+
+How does Docker daemon handle concurrency?
+
+How does Docker daemon manage container lifecycle?
+
+What are Docker daemon responsibilities vs container runtime responsibilities?
+
+How does Docker daemon interact with the Linux kernel?
+
+Docker Daemon Architecture
+
+How does dockerd communicate with containerd?
+
+What protocol is used between dockerd and containerd?
+
+What is the role of runc in Docker daemon architecture?
+
+How does Docker daemon implement OCI compliance?
+
+What internal components exist inside dockerd?
+
+How does Docker daemon manage image layers?
+
+How does Docker daemon manage metadata storage?
+
+Where does Docker daemon store its state on disk?
+
+How does Docker daemon manage multiple containers simultaneously?
+
+What is the event loop model of the Docker daemon?
+
+Docker API & Communication
+
+How does Docker daemon expose the Docker API?
+
+What transport mechanisms does Docker daemon support?
+
+How does Docker daemon handle API versioning?
+
+How does Docker daemon authenticate API requests?
+
+How does Docker daemon authorize API calls?
+
+What happens internally when docker run is executed?
+
+How does Docker daemon handle long-running API calls?
+
+How do Docker clients discover daemon capabilities?
+
+How does Docker daemon handle backward compatibility?
+
+How do multiple clients interact with the same daemon?
+
+Docker Daemon Networking
+
+How does Docker daemon create and manage networks?
+
+How does Docker daemon program iptables rules?
+
+How does Docker daemon handle port publishing?
+
+How does Docker daemon manage DNS for containers?
+
+How does Docker daemon isolate network namespaces?
+
+How does Docker daemon implement overlay networks?
+
+How does Docker daemon clean up stale network resources?
+
+How does Docker daemon handle network driver plugins?
+
+What happens inside dockerd when a container joins a network?
+
+How does Docker daemon handle network failures?
+
+Storage & Volumes (Daemon Perspective)
+
+How does Docker daemon manage volumes?
+
+How does Docker daemon track volume lifecycle?
+
+How does Docker daemon interact with volume drivers?
+
+How does Docker daemon manage bind mounts?
+
+How does Docker daemon handle volume cleanup?
+
+How does Docker daemon persist volume metadata?
+
+How does Docker daemon manage copy-on-write layers?
+
+How does Docker daemon handle storage driver selection?
+
+What happens if Docker daemon restarts during I/O?
+
+How does Docker daemon detect orphaned volumes?
+
+Security & Access Control
+
+Why is Docker daemon considered a root-level service?
+
+What security risks exist around the Docker daemon?
+
+How does Docker daemon enforce seccomp profiles?
+
+How does Docker daemon integrate with AppArmor or SELinux?
+
+How does Docker daemon handle user namespaces?
+
+How does Docker daemon prevent container escape?
+
+What is rootless Docker daemon?
+
+How does Docker daemon secure remote API access?
+
+How does Docker daemon manage secrets?
+
+How do you audit Docker daemon actions?
+
+Performance & Scalability
+
+How does Docker daemon scale with thousands of containers?
+
+What are Docker daemon bottlenecks?
+
+How does Docker daemon handle high API request rates?
+
+How does Docker daemon manage CPU and memory pressure?
+
+How does Docker daemon behave under disk exhaustion?
+
+How does Docker daemon handle image pull contention?
+
+How does Docker daemon cache images efficiently?
+
+How does Docker daemon optimize container startup time?
+
+How does Docker daemon handle garbage collection?
+
+How does Docker daemon impact host performance?
+
+High Availability & Multi-Daemon
+
+Can Docker daemon run in HA mode?
+
+How do Docker daemons communicate in Swarm?
+
+How does Docker daemon perform leader election?
+
+How does Docker daemon handle node failure?
+
+How does Docker daemon synchronize cluster state?
+
+How does Docker daemon manage TLS between nodes?
+
+How does Docker daemon recover from split-brain?
+
+How does Docker daemon handle rolling updates?
+
+How does Docker daemon manage service scheduling?
+
+How does Docker daemon handle quorum loss?
+
+Troubleshooting & Operations
+
+Docker daemon is running but containers won’t start—why?
+
+Docker daemon is unresponsive—how do you debug?
+
+Docker daemon memory usage keeps growing—why?
+
+Docker daemon CPU spikes—root causes?
+
+Docker daemon restart caused outages—why?
+
+Docker daemon logs show API timeouts—what do you check?
+
+Docker daemon fails to pull images—debug steps?
+
+Docker daemon reports “too many open files”—why?
+
+Docker daemon disk usage keeps increasing—how to fix?
+
+Docker daemon upgrade broke containers—how to recover?
+
+Advanced / Internals
+
+How does Docker daemon manage goroutines internally?
+
+How does Docker daemon serialize container state?
+
+How does Docker daemon ensure idempotency of operations?
+
+How does Docker daemon handle race conditions?
+
+How does Docker daemon detect dead containers?
+
+How does Docker daemon handle signal forwarding?
+
+How does Docker daemon manage event subscriptions?
+
+How does Docker daemon ensure consistency after crashes?
+
+How does Docker daemon differ from containerd-only setups?
+
+When should Docker daemon not be used?
