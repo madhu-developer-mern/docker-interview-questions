@@ -1,0 +1,131 @@
+Core Understanding
+
+Why are labels preferred over Pod names or IPs for service discovery in Kubernetes?
+
+What guarantees does Kubernetes provide—and not provide—around labels?
+
+Can two different controllers manage the same Pod using labels? Why or why not?
+
+What happens internally if a Pod’s labels no longer match its owning Deployment selector?
+
+Why is .spec.selector in a Deployment considered immutable, and what breaks if you change it?
+
+Services & Traffic Routing
+
+How does a Service resolve its backend endpoints using selectors?
+
+What happens to traffic when Pods matching a Service selector are deleted or recreated?
+
+Can a Service select Pods across namespaces? Why?
+
+What is the impact of adding version labels (e.g., version=v1) to a Service selector?
+
+How would you design label selectors to support instant rollback?
+
+Deployments & Rollouts
+
+How do labels and selectors enable rolling updates?
+
+What label strategy do you recommend for blue–green deployments?
+
+How does Kubernetes prevent a Deployment from accidentally adopting Pods it did not create?
+
+During a rolling update, how many different label sets can exist simultaneously?
+
+Why is over-selecting labels in a Deployment dangerous?
+
+Canary & Advanced Routing
+
+Why can Kubernetes Services not natively support weighted traffic using selectors?
+
+How do labels integrate with Ingress controllers for canary deployments?
+
+What breaks if both v1 and v2 Pods match the same Service selector?
+
+How would you isolate canary Pods without creating new namespaces?
+
+When would you avoid using labels for versioning altogether?
+
+Security & Network Policies
+
+How do NetworkPolicies rely on labels and selectors?
+
+What happens if labels are accidentally removed from Pods protected by a NetworkPolicy?
+
+Can label misuse lead to a security breach? Give a scenario.
+
+How do you design labels for zero-trust networking?
+
+Why are IP-based firewall rules discouraged in Kubernetes?
+
+Node Selection & Scheduling
+
+What is the difference between nodeSelector, node affinity, and label selectors?
+
+How do node labels influence scheduling decisions?
+
+What happens if a node label changes while Pods are running?
+
+How do labels help reduce infrastructure cost?
+
+When would taints be preferred over label selectors?
+
+Multi-Tenancy & Isolation
+
+How would you design labels for multi-tenant workloads in a shared cluster?
+
+Why is label-based isolation weaker than namespace isolation?
+
+How do you prevent one tenant’s Service from selecting another tenant’s Pods?
+
+How do labels interact with ResourceQuotas and LimitRanges?
+
+How would you audit label usage in a large cluster?
+
+Operations & Day-2 Scenarios
+
+How do labels enable safe bulk operations?
+
+What risks arise from inconsistent labeling across teams?
+
+How do you enforce label standards across the organization?
+
+What tooling would you use to detect label drift?
+
+How do labels affect observability and alert routing?
+
+Performance & Scale
+
+How do selectors scale when a cluster has tens of thousands of Pods?
+
+Are label lookups stored in etcd indexes? Why does this matter?
+
+What is the performance impact of complex selector expressions?
+
+Can excessive labels impact API server performance?
+
+How would you design labels for a 50k-Pod cluster?
+
+Failure & Debugging
+
+A Service shows zero endpoints—how do you debug using labels?
+
+A Deployment is stuck during rollout—how can selectors be the root cause?
+
+How do you detect selector conflicts across controllers?
+
+What kubectl commands help validate selector behavior?
+
+How do you recover from a production outage caused by a bad selector?
+
+Architecture Judgment
+
+What is a “minimal selector” and why does it matter?
+
+When is it acceptable to change labels on running Pods?
+
+What label strategy would you standardize for microservices?
+
+How do labels influence GitOps workflows?
+
+What mistakes do junior engineers commonly make with labels and selectors?
