@@ -129,3 +129,122 @@ What label strategy would you standardize for microservices?
 How do labels influence GitOps workflows?
 
 What mistakes do junior engineers commonly make with labels and selectors?
+Core Concepts
+
+What problem do namespaces solve that labels alone cannot?
+
+Which Kubernetes resources are namespaced and which are cluster-scoped?
+
+Why is the default namespace considered dangerous in production?
+
+Can namespaces provide hard security isolation? Why or why not?
+
+What actually happens inside the cluster when a namespace is deleted?
+
+Architecture & Design
+
+How do you decide between using namespaces versus separate clusters?
+
+What are the trade-offs of environment-based vs team-based namespaces?
+
+How would you design namespaces for a multi-tenant SaaS platform?
+
+When does a namespace become too large to manage effectively?
+
+How would you refactor a poorly designed namespace structure without downtime?
+
+Networking & Traffic
+
+How does Service discovery work across namespaces?
+
+Why can a Service not directly select Pods from another namespace?
+
+How do NetworkPolicies behave across namespace boundaries?
+
+How would you allow traffic from frontend namespace to backend namespace securely?
+
+What risks arise from unrestricted cross-namespace communication?
+
+Security & RBAC
+
+How is RBAC scoped using namespaces?
+
+What is the difference between a Role and a ClusterRole?
+
+Why are ClusterRoles often overused in organizations?
+
+How would you restrict developers to deploy only within their namespace?
+
+How do you prevent privilege escalation via namespace access?
+
+Resource Management
+
+How do ResourceQuotas work at the namespace level?
+
+What happens when a namespace exceeds its CPU or memory quota?
+
+How do LimitRanges differ from ResourceQuotas?
+
+How would you protect production from noisy dev workloads?
+
+What namespace-level controls help with cost optimization?
+
+Operations & Day-2
+
+How do namespaces reduce blast radius during failures?
+
+How would you safely clean up unused namespaces?
+
+What signals indicate a namespace is misconfigured?
+
+How do you monitor resource usage per namespace?
+
+How would you debug a Service that works in one namespace but not another?
+
+GitOps & CI/CD
+
+How do namespaces influence GitOps repository structure?
+
+Should namespaces be created manually or via GitOps? Why?
+
+How do you manage secrets across multiple namespaces?
+
+What problems arise when CI pipelines share namespaces?
+
+How do you promote workloads across namespaces safely?
+
+Observability & Compliance
+
+How do logs and metrics behave across namespaces?
+
+How do namespaces help with audit and compliance requirements?
+
+How do you enforce naming and labeling standards per namespace?
+
+How would you trace a production incident to a specific namespace?
+
+How do namespaces interact with cost-allocation tools?
+
+Failure & Edge Cases
+
+What happens to PersistentVolumeClaims when a namespace is deleted?
+
+Can a Pod exist without a namespace?
+
+What happens if two namespaces contain Services with the same name?
+
+How do finalizers affect namespace deletion?
+
+What are common causes of namespaces stuck in Terminating state?
+
+Architecture Judgment
+
+When is a namespace the wrong abstraction?
+
+What anti-patterns have you seen with namespaces in production?
+
+How do you design namespace governance at scale?
+
+How would you onboard a new team using namespaces?
+
+What signals tell you it’s time to split a namespace or create a new cluster?
