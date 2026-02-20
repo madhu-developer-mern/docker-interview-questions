@@ -2521,3 +2521,132 @@ Why do organizations enforce Dockerfile standards?
 
 Why do senior DevOps engineers obsess over Docker builds?
 
+Explain how Docker determines whether to reuse a cached layer during build.
+
+What are the implications of layer ordering in a Dockerfile?
+
+Why is copying dependency files before source code considered a best practice?
+
+Compare RUN, CMD, and ENTRYPOINT in production scenarios.
+
+When would you combine multiple RUN commands into a single instruction?
+
+How do multi-stage builds improve security and deployment efficiency?
+
+What are the trade-offs between alpine, slim, and distroless base images?
+
+How would you reduce image size without affecting runtime performance?
+
+What happens internally when you rebuild an image after modifying a single file?
+
+How do you handle build-time configuration vs runtime configuration?
+
+🚀 Layers & Caching
+
+What causes Docker build cache invalidation?
+
+How does Docker calculate cache keys for COPY instructions?
+
+How do you optimize Docker builds for large monorepos?
+
+What is the impact of poor layer design in CI/CD pipelines?
+
+How do you inspect and analyze image layers?
+
+How does .dockerignore influence build performance?
+
+What is the impact of dependency reinstallation on build speed?
+
+How do layer changes affect downstream layers?
+
+How would you structure a Dockerfile for maximum cache reuse?
+
+What is the difference between image layering and filesystem layering?
+
+🌐 Ports & Networking
+
+What happens internally in Linux when you map 8000:80?
+
+Explain the role of iptables in Docker port mapping.
+
+Why must services bind to 0.0.0.0 inside containers?
+
+What is the difference between EXPOSE and -p?
+
+How does container-to-container communication differ from host-to-container communication?
+
+What is the role of the Docker bridge network?
+
+What changes when using --network host?
+
+How are ports handled in Docker Compose?
+
+How do WebSockets behave behind reverse proxies in containers?
+
+What are the performance implications of port publishing?
+
+🔐 Environment Variables & Configuration
+
+What is the difference between ARG and ENV?
+
+When are build-time variables preferable over runtime variables?
+
+How do environment variables behave differently in frontend and backend builds?
+
+What are the security risks of using environment variables?
+
+How would you securely manage secrets in production?
+
+How do environment variables affect image portability?
+
+How can improper configuration management impact CI/CD pipelines?
+
+How do you override environment variables in Docker Compose?
+
+What happens if environment variables change but image is not rebuilt?
+
+How would you design environment configuration for multi-environment deployment?
+
+💾 Volumes & Storage
+
+What problem do Docker volumes solve?
+
+Explain the difference between named volumes and bind mounts.
+
+How does Docker store named volumes internally?
+
+What happens to container data without volumes?
+
+When would you prefer bind mounts over named volumes?
+
+What are the risks of using bind mounts in production?
+
+How do volumes behave across container restarts?
+
+How do volumes affect backup strategies?
+
+How does storage differ in Docker vs Kubernetes?
+
+What are the performance implications of volume mounting?
+
+🏗 Architecture & Production Design
+
+How would you containerize a two-tier React + FastAPI application for production?
+
+How would you design container networking for microservices?
+
+How do you minimize downtime during container updates?
+
+How do you ensure image immutability across environments?
+
+What strategies reduce cold-start time in cloud deployments?
+
+How do you manage logs in containerized systems?
+
+What are the trade-offs between single-container and multi-container design?
+
+How do you implement health checks in Docker?
+
+What are the limitations of Docker’s bridge networking?
+
+How would you design Docker for high-traffic WebSocket applications?
